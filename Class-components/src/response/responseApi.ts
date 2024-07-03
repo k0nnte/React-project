@@ -3,6 +3,7 @@ export default async function (name: string) {
   if (!response.ok) {
     throw new Error('not found');
   }
+  const data = await response.json();
 
-  return await response.json();
+  return data;
 }
