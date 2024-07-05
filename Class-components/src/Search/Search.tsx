@@ -25,6 +25,9 @@ class Search extends Component<IonSearch, Istate> {
     localStorage.setItem('text', this.state.inputInfo.trim());
     this.props.onSearch(this.state.inputInfo.trim());
   };
+  clickErr = () => {
+    throw new Error('Error');
+  };
 
   render(): ReactNode {
     return (
@@ -37,6 +40,7 @@ class Search extends Component<IonSearch, Istate> {
           className="inpyt"
         />
         <button onClick={this.clickBtn}>Search</button>
+        <button onClick={this.clickErr}>Throw ERROR</button>
       </div>
     );
   }
