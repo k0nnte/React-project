@@ -3,6 +3,7 @@ import '../Search/Search.scss';
 
 interface Istate {
   inputInfo: string;
+  err: boolean;
 }
 
 interface IonSearch {
@@ -14,6 +15,7 @@ class Search extends Component<IonSearch, Istate> {
     super(props);
     this.state = {
       inputInfo: localStorage.getItem('text') || '',
+      err: false,
     };
   }
 
@@ -26,10 +28,13 @@ class Search extends Component<IonSearch, Istate> {
     this.props.onSearch(this.state.inputInfo.trim());
   };
   clickErr = () => {
-    throw new Error('Error');
+    this.setState({ err: true });
   };
 
   render(): ReactNode {
+    if (this.state.err) {
+      throw new Error('Click error');
+    }
     return (
       <div className="wrapTop">
         <input

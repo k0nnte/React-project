@@ -139,6 +139,7 @@ export interface Idata {
     | IapiEndpoints
   )[];
   isLoad: boolean;
+  iserror: boolean;
 }
 
 export interface Iobject {
