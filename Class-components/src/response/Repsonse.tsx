@@ -2,6 +2,7 @@ import { Component, ReactNode } from 'react';
 import responseApi from './responseApi';
 import { Iobject, Idata } from '../interfases/interfases';
 import Cart from '../Cart/Cart';
+import '../response/Repsonse.scss';
 
 class Response extends Component<Iobject, Idata> {
   constructor(props: Iobject) {
@@ -39,7 +40,7 @@ class Response extends Component<Iobject, Idata> {
 
   render(): ReactNode {
     return (
-      <div>
+      <div className="wrapbottom">
         {this.state.mas.map((item, index) => (
           <Cart key={index} response={item} />
         ))}

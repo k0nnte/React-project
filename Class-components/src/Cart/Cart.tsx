@@ -9,6 +9,7 @@ import {
   Istarship,
   Ivehicle,
 } from '../interfases/interfases';
+import '../Cart/Cart.scss';
 
 class Cart extends Component<Icart> {
   constructor(props: Icart) {
@@ -40,7 +41,7 @@ class Cart extends Component<Icart> {
     switch (responseType) {
       case 'planet':
         return (
-          <div>
+          <div className="cart">
             <p>name: {(response as Iplanet).name}</p>
             <p>rotation_period: {(response as Iplanet).rotation_period}</p>
             <p>orbital_period: {(response as Iplanet).orbital_period}</p>
@@ -54,7 +55,7 @@ class Cart extends Component<Icart> {
         );
       case 'film':
         return (
-          <div>
+          <div className="cart">
             <p>title: {(response as Ifilms).title}</p>
             <p>episode_id: {(response as Ifilms).episode_id}</p>
             <p>director: {(response as Ifilms).director}</p>
@@ -64,7 +65,7 @@ class Cart extends Component<Icart> {
         );
       case 'species':
         return (
-          <div>
+          <div className="cart">
             <p>name: {(response as Ispecies).name}</p>
             <p>classification: {(response as Ispecies).classification}</p>
             <p>designation: {(response as Ispecies).designation}</p>
@@ -78,7 +79,7 @@ class Cart extends Component<Icart> {
         );
       case 'vehicle':
         return (
-          <div>
+          <div className="cart">
             <p>name: {(response as Ivehicle).name}</p>
             <p>model: {(response as Ivehicle).model}</p>
             <p>manufacturer: {(response as Ivehicle).manufacturer}</p>
@@ -97,7 +98,7 @@ class Cart extends Component<Icart> {
         );
       case 'starship':
         return (
-          <div>
+          <div className="cart">
             <p>name: {(response as Istarship).name}</p>
             <p>model: {(response as Istarship).model}</p>
             <p>manufacturer: {(response as Istarship).manufacturer}</p>
@@ -120,7 +121,8 @@ class Cart extends Component<Icart> {
         );
       case 'apiEndpoints':
         return (
-          <div>
+          <div className="cart">
+            <h3>enter 1 of the queries</h3>
             {Object.keys(response).map((item, index) => (
               <p key={index}>{item}</p>
             ))}
@@ -128,7 +130,7 @@ class Cart extends Component<Icart> {
         );
       case 'people':
         return (
-          <div>
+          <div className="cart">
             <p>name: {(response as Iresponse).name}</p>
             <p>height: {(response as Iresponse).height}</p>
             <p>mass: {(response as Iresponse).mass}</p>

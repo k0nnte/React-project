@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import Search from './Search/Search';
 import Response from './response/Repsonse';
+import '../src/App.scss';
 
 interface IInputvalueState {
   searchText: string;
@@ -20,7 +21,7 @@ class App extends Component<object, IInputvalueState> {
 
   render() {
     return (
-      <div>
+      <div className="app">
         <div className="top">
           <Search onSearch={this.handSearch} />
         </div>

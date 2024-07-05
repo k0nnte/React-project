@@ -1,4 +1,5 @@
 import { Component, ReactNode } from 'react';
+import '../Search/Search.scss';
 
 interface Istate {
   inputInfo: string;
@@ -27,12 +28,13 @@ class Search extends Component<IonSearch, Istate> {
 
   render(): ReactNode {
     return (
-      <div>
+      <div className="wrapTop">
         <input
           type="text"
           value={this.state.inputInfo}
           placeholder="введите запрос"
           onChange={this.inputChange}
+          className="inpyt"
         />
         <button onClick={this.clickBtn}>Search</button>
       </div>
