@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export interface Iresponse {
   birth_year: string;
   created: string;
@@ -144,4 +146,20 @@ export interface Idata {
 
 export interface Iobject {
   search: string;
+}
+
+export interface props {
+  children: ReactNode;
+}
+
+export interface state {
+  hasError: boolean;
+}
+
+export interface Istate {
+  inputInfo: string;
+  err: boolean;
+}
+export interface IInputvalueState {
+  searchText: string;
 }

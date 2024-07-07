@@ -3,10 +3,7 @@ import Search from './Search/Search';
 import Response from './response/Repsonse';
 import '../src/App.scss';
 import ErrorBoundary from './Error/Error';
-
-interface IInputvalueState {
-  searchText: string;
-}
+import { IInputvalueState } from './interfases/interfases';
 
 class App extends Component<object, IInputvalueState> {
   constructor(props: object) {

@@ -1,13 +1,6 @@
 import { Component, ReactNode } from 'react';
 import './Error.scss';
-
-interface props {
-  children: ReactNode;
-}
-
-interface state {
-  hasError: boolean;
-}
+import { props, state } from '../interfases/interfases';
 
 class ErrorBoundary extends Component<props, state> {
   constructor(props: props) {
@@ -18,6 +11,7 @@ class ErrorBoundary extends Component<props, state> {
   static getDerivedStateFromError() {
     return { hasError: true };
   }
+
   componentDidCatch(error: Error) {
     console.log(error);
   }

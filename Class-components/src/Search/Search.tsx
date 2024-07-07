@@ -1,10 +1,6 @@
 import { Component, ReactNode } from 'react';
 import '../Search/Search.scss';
-
-interface Istate {
-  inputInfo: string;
-  err: boolean;
-}
+import { Istate } from '../interfases/interfases';
 
 interface IonSearch {
   onSearch: (newText: string) => void;

@@ -60,9 +60,15 @@ class Response extends Component<Iobject, Idata> {
   }
 
   render(): ReactNode {
-    // if (this.state.iserror) {
-    //   throw new Error('Not Faund');
-    // }
+    if (this.state.iserror) {
+      return (
+        <div className="ERROR_wrapper">
+          <div className="Error">
+            <span className="spanrezerv">Not Faund</span>
+          </div>
+        </div>
+      );
+    }
     return (
       <div className="wrapbottom">
         {this.state.isLoad ? (
