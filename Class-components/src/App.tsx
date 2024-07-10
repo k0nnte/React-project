@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Search from './Search/Search';
 import Response from './response/Repsonse';
 import '../src/App.scss';
 import ErrorBoundary from './Error/Error';
+import useLocalStorage from './interfases/hooks';
 
 const App: React.FC = () => {
-  const [searchText, setSearchText] = useState(
-    localStorage.getItem('text') || ''
-  );
+  const [searchText, setSearchText] = useLocalStorage('text');
   const handleSearch = (newText: string) => {
     setSearchText(newText);
   };

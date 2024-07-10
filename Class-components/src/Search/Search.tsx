@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import '../Search/Search.scss';
+import useLocalStorage from '../interfases/hooks';
 
 interface IonSearch {
   onSearch: (newText: string) => void;
 }
 
 const Search: React.FC<IonSearch> = ({ onSearch }) => {
-  const [inputInfo, setInputInfo] = useState<string>(
-    localStorage.getItem('text') || ''
-  );
+  const [inputInfo, setInputInfo] = useLocalStorage('text');
   const [err, setErr] = useState<boolean>(false);
 
   const inputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
