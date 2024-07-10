@@ -1,36 +1,32 @@
-import { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Search from './Search/Search';
 import Response from './response/Repsonse';
 import '../src/App.scss';
 import ErrorBoundary from './Error/Error';
-import { IInputvalueState } from './interfases/interfases';
 
-class App extends Component<object, IInputvalueState> {
-  constructor(props: object) {
-    super(props);
-    this.state = {
-      searchText: localStorage.getItem('text') || '',
-    };
-  }
-
-  handSearch = (newText: string) => {
-    this.setState({ searchText: newText });
+const App: React.FC = () => {
+  const [searchText, setSearchText] = useState(
+    localStorage.getItem('text') || ''
+  );
+  const handleSearch = (newText: string) => {
+    setSearchText(newText);
   };
+  useEffect(() => {
+    localStorage.setItem('text', searchText);
+  }, [searchText]);
 
-  render() {
-    return (
-      <ErrorBoundary>
-        <div className="app">
-          <div className="top">
-            <Search onSearch={this.handSearch} />
-          </div>
-          <div className="bottom">
-            <Response search={this.state.searchText} />
-          </div>
+  return (
+    <ErrorBoundary>
+      <div className="app">
+        <div className="top">
+          <Search onSearch={handleSearch} />
         </div>
-      </ErrorBoundary>
-    );
-  }
-}
+        <div className="bottom">
+          <Response search={searchText} />
+        </div>
+      </div>
+    </ErrorBoundary>
+  );
+};
 
 export default App;

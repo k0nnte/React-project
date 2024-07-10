@@ -1,50 +1,46 @@
-import { Component, ReactNode } from 'react';
+import React, { useState } from 'react';
 import '../Search/Search.scss';
-import { Istate } from '../interfases/interfases';
 
 interface IonSearch {
   onSearch: (newText: string) => void;
 }
 
-class Search extends Component<IonSearch, Istate> {
-  constructor(props: IonSearch) {
-    super(props);
-    this.state = {
-      inputInfo: localStorage.getItem('text') || '',
-      err: false,
-    };
+const Search: React.FC<IonSearch> = ({ onSearch }) => {
+  const [inputInfo, setInputInfo] = useState<string>(
+    localStorage.getItem('text') || ''
+  );
+  const [err, setErr] = useState<boolean>(false);
+
+  const inputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputInfo(event.target.value);
+  };
+
+  const clickBtn = () => {
+    localStorage.setItem('text', inputInfo.trim());
+    onSearch(inputInfo.trim());
+  };
+
+  const clickErr = () => {
+    setErr(true);
+  };
+
+  if (err) {
+    throw new Error('Click error');
   }
 
-  inputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ inputInfo: event.target.value });
-  };
-
-  clickBtn = () => {
-    localStorage.setItem('text', this.state.inputInfo.trim());
-    this.props.onSearch(this.state.inputInfo.trim());
-  };
-  clickErr = () => {
-    this.setState({ err: true });
-  };
-
-  render(): ReactNode {
-    if (this.state.err) {
-      throw new Error('Click error');
-    }
-    return (
-      <div className="wrapTop">
-        <input
-          type="text"
-          value={this.state.inputInfo}
-          placeholder="введите запрос"
-          onChange={this.inputChange}
-          className="inpyt"
-        />
-        <button onClick={this.clickBtn}>Search</button>
-        <button onClick={this.clickErr}>Throw ERROR</button>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="wrapTop">
+      <input
+        type="text"
+        value={inputInfo}
+        placeholder="введите запрос"
+        onChange={inputChange}
+        className="inpyt"
+      />
+      <button onClick={clickBtn}>Search</button>
+      <button onClick={clickErr}>Throw ERROR</button>
+    </div>
+  );
+};
 
 export default Search;

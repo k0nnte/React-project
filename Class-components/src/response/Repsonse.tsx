@@ -1,86 +1,55 @@
-import { Component, ReactNode } from 'react';
-import responseApi from './responseApi';
-import { Iobject, Idata } from '../interfases/interfases';
+import { useState, useEffect } from 'react';
+import { Iobject, Irequest } from '../interfases/interfases';
 import Cart from '../Cart/Cart';
 import '../response/Repsonse.scss';
 import Loading from '../Loading/Loading';
+import request from './request';
 
-class Response extends Component<Iobject, Idata> {
-  constructor(props: Iobject) {
-    super(props);
-    this.state = {
-      mas: [],
-      isLoad: true,
-      iserror: false,
-    };
-  }
+const obj = {
+  count: 0,
+  next: null,
+  previous: null,
+  results: [],
+};
 
-  componentDidMount(): void {
-    if (this.props.search !== '') {
-      responseApi(this.props.search)
-        .then((data) =>
-          this.setState({ mas: data.results, isLoad: false, iserror: false })
-        )
-        .catch(() => {
-          this.setState({ isLoad: false, iserror: true });
-        });
-    } else {
-      responseApi(this.props.search)
-        .then((data) =>
-          this.setState({ mas: [data], isLoad: false, iserror: false })
-        )
-        .catch(() => {
-          this.setState({ isLoad: false, iserror: true });
-        });
+const Response: React.FC<Iobject> = ({ search }) => {
+  const [mas, setMas] = useState<Irequest>(obj);
+  const [isLoad, setIsLoad] = useState(true);
+  const [isError, setIsError] = useState(false);
+
+  const fetchData = async (searchQuery: string) => {
+    try {
+      setIsLoad(true);
+      const data = await request(searchQuery);
+      setMas(data);
+      setIsError(false);
+    } catch (error) {
+      setIsError(true);
+    } finally {
+      setIsLoad(false);
     }
-  }
+  };
 
-  componentDidUpdate(prevProps: Iobject): void {
-    if (prevProps.search !== this.props.search) {
-      if (this.props.search !== '') {
-        this.setState({ isLoad: true });
-        responseApi(this.props.search)
-          .then((data) =>
-            this.setState({ mas: data.results, isLoad: false, iserror: false })
-          )
-          .catch(() => {
-            this.setState({ isLoad: false, iserror: true });
-          });
-      } else {
-        this.setState({ isLoad: true });
-        responseApi(this.props.search)
-          .then((data) =>
-            this.setState({ mas: [data], isLoad: false, iserror: false })
-          )
-          .catch(() => {
-            this.setState({ isLoad: false, iserror: true });
-          });
-      }
-    }
-  }
+  useEffect(() => {
+    fetchData(search);
+  }, [search]);
 
-  render(): ReactNode {
-    if (this.state.iserror) {
-      return (
-        <div className="ERROR_wrapper">
-          <div className="Error">
-            <span className="spanrezerv">Not Faund</span>
-          </div>
-        </div>
-      );
-    }
-    return (
-      <div className="wrapbottom">
-        {this.state.isLoad ? (
-          <Loading />
-        ) : (
-          this.state.mas.map((item, index) => (
-            <Cart key={index} response={item} />
-          ))
-        )}
-      </div>
-    );
+  if (isError) {
+    return <div className="error">Ошибка загрузки</div>;
   }
-}
+  return (
+    <div className="wrapbottom">
+      {isLoad ? (
+        <Loading />
+      ) : mas.results.length === 0 ? (
+        <div className="error">Not Found</div>
+      ) : (
+        mas.results.map((item, index) => {
+          return <Cart key={index} response={item} />;
+        })
+      )}
+    </div>
+  );
+};
 
 export default Response;

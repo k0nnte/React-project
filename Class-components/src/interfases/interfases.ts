@@ -163,3 +163,10 @@ export interface Istate {
 export interface IInputvalueState {
   searchText: string;
 }
+
+export interface Irequest {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: Iresponse[];
+}
