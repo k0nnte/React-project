@@ -28,9 +28,13 @@ const App: React.FC = () => {
       </div>
       <div className="bottom">
         <Routes>
-          <Route path="/" element={<Response search={searchText} />} />
+          <Route path="*" element={<Response search={searchText} />} />
           <Route
             path="/page/:page?"
+            element={<Response search={searchText} />}
+          />
+          <Route
+            path="/details/:id"
             element={<Response search={searchText} />}
           />
         </Routes>
@@ -42,7 +46,7 @@ const App: React.FC = () => {
       <div className="app">
         <Routes>
           <Route
-            path="/"
+            path="*"
             element={
               <MainContent
                 searchText={searchText}
@@ -51,7 +55,7 @@ const App: React.FC = () => {
             }
           />
           <Route
-            path="/page/:page?"
+            path="/page/:page?/*"
             element={
               <MainContent
                 searchText={searchText}

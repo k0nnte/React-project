@@ -2,9 +2,17 @@ import React from 'react';
 import { Icart, Iresponse } from '../interfases/interfases';
 import '../Cart/Cart.scss';
 
-const Cart: React.FC<Icart> = ({ response }) => {
+interface Iindex extends Icart {
+  index: number;
+}
+
+const Cart: React.FC<Iindex> = ({ response, index }) => {
+  const clickDiv = () => {
+    console.log(index);
+  };
+
   return (
-    <div className="cart">
+    <div className="cart" onClick={clickDiv}>
       <p>name: {(response as Iresponse).name}</p>
       <p>height: {(response as Iresponse).height}</p>
       <p>mass: {(response as Iresponse).mass}</p>

@@ -65,7 +65,7 @@ const Response: React.FC<Iobject> = ({ search }) => {
     <div className="wrapbottom">
       <div className="results">
         {mas.results.map((item, index) => (
-          <Cart key={index} response={item} />
+          <Cart key={index} response={item} index={index} />
         ))}
       </div>
       {mas.count > 10 && (
@@ -88,6 +88,7 @@ const Response: React.FC<Iobject> = ({ search }) => {
           </button>
         </div>
       )}
+      {/* {param.id && <ErrorCart />} */}
     </div>
   );
 };
