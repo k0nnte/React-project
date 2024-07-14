@@ -1,0 +1,28 @@
+
+.results{
+    display: flex;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+.bottom{
+   border-bottom: 1px solid black;
+   padding-bottom: 50px;
+}
+
+.pagination{
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+}
+
+.btnclick{
+    width: 100px;
+    height: 30px;
+    cursor: pointer;
+
+    &:disabled{
+        cursor: not-allowed;
+    }
+}
