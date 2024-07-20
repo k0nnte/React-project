@@ -4,7 +4,7 @@ import Cart from '../Cart/Cart';
 import '../response/Repsonse.scss';
 import Loading from '../Loading/Loading';
 import request from './request';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 
 const obj = {
   count: 0,
@@ -18,8 +18,11 @@ const Response: React.FC<Iobject> = ({ search }) => {
   const [isLoad, setIsLoad] = useState(true);
   const [isError, setIsError] = useState(false);
   const [errorText, setErrorText] = useState('');
-  const param = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const queryParams = new URLSearchParams(location.search);
+  const page = queryParams.get('page') || '1';
 
   const fetchData = async (searchQuery: string, param: string = '1') => {
     try {
@@ -37,17 +40,17 @@ const Response: React.FC<Iobject> = ({ search }) => {
   };
 
   useEffect(() => {
-    fetchData(search, param.page);
-  }, [param.page, search]);
+    fetchData(search, page);
+  }, [page, search]);
 
   const handlePreviousPage = () => {
-    const prevPage = param.page ? +param.page - 1 : 1;
-    navigate(`/page/${prevPage}`);
+    const prevPage = page ? +page - 1 : 1;
+    navigate(`?page=${prevPage}`);
   };
 
   const handleNextPage = () => {
-    const nextPage = param.page ? +param.page + 1 : 2;
-    navigate(`/page/${nextPage}`);
+    const nextPage = page ? +page + 1 : 2;
+    navigate(`?page=${nextPage}`);
   };
 
   if (isError) {
@@ -57,39 +60,48 @@ const Response: React.FC<Iobject> = ({ search }) => {
   if (isLoad) {
     return <Loading />;
   }
-
   if (mas.results.length === 0) {
     return <div className="error">Not Found</div>;
   }
+
+  const clickrez = () => {
+    const currentPath = location.pathname;
+    const detailsRegex = /\/details\/\d+/;
+    if (detailsRegex.test(currentPath)) {
+      const newPath = currentPath.replace(detailsRegex, '');
+      navigate(newPath);
+    }
+  };
+
   return (
-    <div className="wrapbottom">
-      <div className="results">
-        {mas.results.map((item, index) => (
-          <Cart key={index} response={item} index={index} />
-        ))}
-      </div>
-      {mas.count > 10 && (
-        <div className="pagination">
-          <button
-            className="btnclick"
-            onClick={handlePreviousPage}
-            disabled={param.page ? +param.page === 1 : true}
-          >
-            prev
-          </button>
-          <button
-            className="btnclick"
-            onClick={handleNextPage}
-            disabled={
-              param.page ? +param.page === Math.ceil(mas.count / 10) : false
-            }
-          >
-            next
-          </button>
+    <>
+      <div className="wrapbottom">
+        <div className="results" onClick={clickrez}>
+          {mas.results.map((item, index) => (
+            <Cart key={index} response={item} index={index} />
+          ))}
         </div>
-      )}
-      {/* {param.id && <ErrorCart />} */}
-    </div>
+        {mas.count > 10 && (
+          <div className="pagination">
+            <button
+              className="btnclick"
+              onClick={handlePreviousPage}
+              disabled={page ? +page === 1 : true}
+            >
+              prev
+            </button>
+            <button
+              className="btnclick"
+              onClick={handleNextPage}
+              disabled={page ? +page === Math.ceil(mas.count / 10) : false}
+            >
+              next
+            </button>
+          </div>
+        )}
+      </div>
+      <Outlet />
+    </>
   );
 };
 
