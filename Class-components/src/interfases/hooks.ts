@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../store/store';
 
 const useLocalStorage = (key: string) => {
   const [value, setValue] = useState(() => {
@@ -12,3 +14,6 @@ const useLocalStorage = (key: string) => {
 };
 
 export default useLocalStorage;
+
+export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
+export const useAppSelector = useSelector.withTypes<RootState>();
