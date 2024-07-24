@@ -4,6 +4,7 @@ import { Iobject } from '../interfases/interfases';
 import Loading from '../Loading/Loading';
 import '../response/Repsonse.scss';
 import { useGetAllPeopleQuery } from './request';
+import { useState } from 'react';
 
 const Response: React.FC<Iobject> = ({ search }) => {
   const navigate = useNavigate();
@@ -11,6 +12,16 @@ const Response: React.FC<Iobject> = ({ search }) => {
 
   const queryParams = new URLSearchParams(location.search);
   const page = queryParams.get('page') || '1';
+
+  const [cheked, setcheked] = useState<{ [key: string]: boolean }>({});
+
+  const toogle = (index: number) => {
+    const key = `${index}_${page}`;
+    setcheked((prevstate) => ({
+      ...prevstate,
+      [key]: !prevstate[key],
+    }));
+  };
 
   const { data, isLoading, isSuccess, isError, isFetching } =
     useGetAllPeopleQuery([search, page]);
@@ -48,7 +59,13 @@ const Response: React.FC<Iobject> = ({ search }) => {
         <div className="wrapbottom">
           <div className="results" onClick={clickrez}>
             {data!.results.map((item, index) => (
-              <Cart key={index} response={item} index={index} />
+              <Cart
+                key={index}
+                response={item}
+                index={index}
+                isChecked={!!cheked[`${index}_${page}`]}
+                toogle={toogle}
+              />
             ))}
           </div>
           {data!.count > 10 && (

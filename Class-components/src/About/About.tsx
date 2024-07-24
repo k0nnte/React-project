@@ -1,6 +1,7 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useGetAllPeopleQuery } from '../response/request';
 import Loading from '../Loading/Loading';
+import './About.scss';
 
 const About: React.FC = () => {
   const location = useLocation();
