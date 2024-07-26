@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import '../Search/Search.scss';
 import useLocalStorage from '../interfases/hooks';
-
-interface IonSearch {
-  onSearch: (newText: string) => void;
-}
+import { Contex } from '../contex/contex';
+import { IonSearch } from '../interfases/interfases';
 
 const Search: React.FC<IonSearch> = ({ onSearch }) => {
   const [inputInfo, setInputInfo] = useLocalStorage('text');
   const [err, setErr] = useState<boolean>(false);
+  const contex = useContext(Contex);
+  const { theme, setTheme } = contex;
 
   const inputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputInfo(event.target.value);
+  };
+
+  const setligth = () => {
+    setTheme(!theme);
   };
 
   const clickBtn = () => {
@@ -28,17 +32,24 @@ const Search: React.FC<IonSearch> = ({ onSearch }) => {
   }
 
   return (
-    <div className="wrapTop">
-      <input
-        type="text"
-        value={inputInfo}
-        placeholder="введите запрос"
-        onChange={inputChange}
-        className="inpyt"
-      />
-      <button onClick={clickBtn}>Search</button>
-      <button onClick={clickErr}>Throw ERROR</button>
-    </div>
+    <>
+      <div className="wrapTop">
+        <input
+          type="text"
+          value={inputInfo}
+          placeholder="введите запрос"
+          onChange={inputChange}
+          className="inpyt"
+        />
+        <button onClick={clickBtn}>Search</button>
+        <button onClick={clickErr}>Throw ERROR</button>
+      </div>
+      <div className="ligth">
+        <button className="ligth_btn" onClick={setligth}>
+          togle theme
+        </button>
+      </div>
+    </>
   );
 };
 

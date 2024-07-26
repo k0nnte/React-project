@@ -4,12 +4,13 @@ import { Iobject } from '../interfases/interfases';
 import Loading from '../Loading/Loading';
 import '../response/Repsonse.scss';
 import { useGetAllPeopleQuery } from './request';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import { useDispatch } from 'react-redux';
 import { distroyer } from '../store/reduser';
 import { saveAs } from 'file-saver';
+import { Contex } from '../contex/contex';
 
 const Response: React.FC<Iobject> = ({ search }) => {
   const navigate = useNavigate();
@@ -18,6 +19,8 @@ const Response: React.FC<Iobject> = ({ search }) => {
   const dispatch = useDispatch();
   const queryParams = new URLSearchParams(location.search);
   const page = queryParams.get('page') || '1';
+  const contex = useContext(Contex);
+  const { theme } = contex;
 
   const [cheked, setcheked] = useState<{ [key: string]: boolean }>({});
 
@@ -121,7 +124,9 @@ const Response: React.FC<Iobject> = ({ search }) => {
           </div>
           <Outlet />
         </div>
-        <div className={`out ${store.length > 0 ? 'open' : ''}`}>
+        <div
+          className={`out ${store.length > 0 ? 'open' : ''} ${theme ? '' : 'black'}`}
+        >
           <p>{store.length} items are selected</p>
           <div className="buttons">
             <button onClick={reset} className="btn">

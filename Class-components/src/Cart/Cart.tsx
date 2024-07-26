@@ -1,21 +1,18 @@
-import { Icart, Iresponse } from '../interfases/interfases';
+import { Iindex, Iresponse } from '../interfases/interfases';
 import '../Cart/Cart.scss';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { add, remove } from '../store/reduser';
-
-interface Iindex extends Icart {
-  index: number;
-  isChecked: boolean;
-  toogle: (index: number) => void;
-}
+import { Contex } from '../contex/contex';
 
 const Cart: React.FC<Iindex> = ({ response, index, isChecked, toogle }) => {
   const navigator = useNavigate();
   const location = useLocation();
   const dispath = useDispatch();
   const queryParams = new URLSearchParams(location.search);
+  const contex = useContext(Contex);
+  const { theme } = contex;
   const clickDiv = () => {
     if (event?.target instanceof HTMLInputElement) {
       return;
@@ -33,7 +30,7 @@ const Cart: React.FC<Iindex> = ({ response, index, isChecked, toogle }) => {
   };
 
   return (
-    <div className="cart" onClick={clickDiv}>
+    <div className={`cart ${theme ? '' : 'black'}`} onClick={clickDiv}>
       <p>name: {(response as Iresponse).name}</p>
       <input
         type="checkbox"

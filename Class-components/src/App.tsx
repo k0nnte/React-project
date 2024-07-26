@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Search from './Search/Search';
 import Response from './response/Repsonse';
 import '../src/App.scss';
@@ -7,6 +7,8 @@ import useLocalStorage from './interfases/hooks';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import ErrorCart from './Error/ErrorCart';
 import About from './About/About';
+import './light.scss';
+import { Contex } from './contex/contex';
 
 const App: React.FC = () => {
   const [searchText, setSearchText] = useLocalStorage('text');
@@ -19,13 +21,16 @@ const App: React.FC = () => {
     setSearchText(searchText);
   }, [searchText, setSearchText]);
 
+  const contex = useContext(Contex);
+  const { theme } = contex;
+
   return (
     <ErrorBoundary>
-      <div className="app">
-        <div className="top">
+      <div className={`app ${theme ? '' : 'black'}`}>
+        <div className={`top ${theme ? '' : 'black'}`}>
           <Search onSearch={handleSearch} />
         </div>
-        <div className="bottom">
+        <div className={`bottom ${theme ? '' : 'black'}`}>
           <Routes>
             <Route path="/" element={<Response search={searchText} />}>
               <Route path="/details/:id" element={<About />} />

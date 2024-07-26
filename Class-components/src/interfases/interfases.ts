@@ -170,3 +170,22 @@ export interface Irequest {
   previous: string | null;
   results: Iresponse[];
 }
+
+export interface ProviderProps {
+  children: ReactNode;
+}
+
+export interface Iindex extends Icart {
+  index: number;
+  isChecked: boolean;
+  toogle: (index: number) => void;
+}
+
+export interface ContextType {
+  theme: boolean;
+  setTheme: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface IonSearch {
+  onSearch: (newText: string) => void;
+}
