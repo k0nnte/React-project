@@ -22,8 +22,11 @@ export const counterSlice = createSlice({
         (item) => item.name !== action.payload.name
       );
     },
+    distroyer: (state) => {
+      state.value.length = 0;
+    },
   },
 });
 
-export const { add, remove } = counterSlice.actions;
+export const { add, remove, distroyer } = counterSlice.actions;
 export default counterSlice.reducer;

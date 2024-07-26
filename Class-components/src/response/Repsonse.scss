@@ -8,7 +8,11 @@
 .bottom{
    border-bottom: 1px solid black;
    padding-bottom: 50px;
-   display: flex;
+    position: relative;
+}
+
+.response{
+       display: flex;
    justify-content: space-between;
    align-items: flex-start;
    gap: 50px;
@@ -30,4 +34,30 @@
     &:disabled{
         cursor: not-allowed;
     }
+}
+
+.out{
+position: absolute;
+left: -500px;
+transition: left 0.5s ease-in-out;
+border: 1px solid black;
+padding: 5px;
+bottom: 10px;
+display: flex;
+flex-direction: column;
+gap: 20px;
+
+}
+
+.open{
+   left: 50%;
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-around;
+}
+
+.btn{
+    cursor: pointer;
 }

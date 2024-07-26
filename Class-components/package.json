@@ -20,6 +20,7 @@
     "react-router-dom": "^6.24.1"
   },
   "devDependencies": {
+    "@types/file-saver": "^2.0.7",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.13.1",
@@ -31,6 +32,7 @@
     "eslint-plugin-react-compiler": "^0.0.0-experimental-0998c1e-20240625",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
+    "file-saver": "^2.0.5",
     "husky": "^9.0.11",
     "prettier": "^3.3.2",
     "sass": "^1.77.6",
