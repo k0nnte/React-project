@@ -1,22 +1,22 @@
-.ERROR_wrapper{
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.ERROR_wrapper {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.Error{
-    font-size: 20px;
-    display: flex;
-    gap: 50px;
-}
-
-.btnReset{
-    width: 100px;
-    height: 40px;
+.Error {
+  font-size: 20px;
+  display: flex;
+  gap: 50px;
 }
 
-.spanrezerv{
-   display: flex;
-   align-items: center;
+.btnReset {
+  width: 100px;
+  height: 40px;
+}
+
+.spanrezerv {
+  display: flex;
+  align-items: center;
 }

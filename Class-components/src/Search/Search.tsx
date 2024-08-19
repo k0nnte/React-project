@@ -7,7 +7,7 @@ interface IonSearch {
 }
 
 const Search: React.FC<IonSearch> = ({ onSearch }) => {
-  const [inputInfo, setInputInfo] = useLocalStorage('text');
+  const [inputInfo, setInputInfo, saveToLocalStorage] = useLocalStorage('text');
   const [err, setErr] = useState<boolean>(false);
 
   const inputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,7 +15,7 @@ const Search: React.FC<IonSearch> = ({ onSearch }) => {
   };
 
   const clickBtn = () => {
-    localStorage.setItem('text', inputInfo.trim());
+    saveToLocalStorage(inputInfo.trim());
     onSearch(inputInfo.trim());
   };
 
