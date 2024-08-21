@@ -61,6 +61,7 @@ const Response: React.FC<Iobject> = ({ search }) => {
   if (mas.results.length === 0) {
     return <div className="error">Not Found</div>;
   }
+
   return (
     <div className="wrapbottom">
       <div className="results">
