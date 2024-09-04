@@ -14,9 +14,9 @@ const Cart: React.FC<Iindex> = ({ response, index, isChecked, toogle }) => {
   const contex = useContext(Contex);
   const { theme } = contex;
   const clickDiv = () => {
-    if (event?.target instanceof HTMLInputElement) {
-      return;
-    }
+    // if (event?.target instanceof HTMLInputElement) {
+    //   return;
+    // }
     navigator(`/details/${index}?${queryParams}`);
   };
 

@@ -1,16 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../store/store';
 
 const useLocalStorage = (key: string) => {
-  const [value, setValue] = useState(() => {
+  const [value, setValueState] = useState(() => {
     const storage = localStorage.getItem(key);
     return storage !== null ? storage : '';
   });
-  useEffect(() => {
-    localStorage.setItem(key, value);
-  }, [key, value]);
-  return [value, setValue] as const;
+
+  const saveToLocalStorage = (newValue: string) => {
+    localStorage.setItem(key, newValue);
+  };
+
+  return [value, setValueState, saveToLocalStorage] as const;
 };
 
 export default useLocalStorage;
