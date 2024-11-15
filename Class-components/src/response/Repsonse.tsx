@@ -2,7 +2,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import Cart from '../Cart/Cart';
 import { Iobject } from '../interfases/interfases';
 import Loading from '../Loading/Loading';
-import '../response/Repsonse.scss';
+import './Repsonse.module.scss';
 import { useGetAllPeopleQuery } from './request';
 import { useContext, useState } from 'react';
 import { useSelector } from 'react-redux';

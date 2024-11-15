@@ -20,9 +20,9 @@ vi.mock('react-router-dom', async (importOriginal) => {
   const actual = await importOriginal();
   return {
     ...actual,
-    useParams: () => ({ id: '0' }), // Возвращаем нужное значение
-    useLocation: () => ({ search: '' }), // Возвращаем пустой search, если это нужно
-    useNavigate: () => mockNavigate, // Замокируем useNavigate, если это нужно
+    useParams: () => ({ id: '0' }),
+    useLocation: () => ({ search: '' }),
+    useNavigate: () => mockNavigate,
   };
 });
 describe('testing about', () => {

@@ -1,7 +1,7 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useGetAllPeopleQuery } from '../response/request';
 import Loading from '../Loading/Loading';
-import './About.scss';
+import './About.module.scss';
 import { useContext } from 'react';
 import { Contex } from '../contex/contex';
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import gif from '../assets/await.gif';
-import './Loading.scss';
+import gif from '../public/assets/await.gif';
+import './Loading.module.scss';
 
 const Loading: React.FC = () => {
   return (

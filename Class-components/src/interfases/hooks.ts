@@ -1,11 +1,14 @@
+'use clinet';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../store/store';
 
 const useLocalStorage = (key: string) => {
   const [value, setValueState] = useState(() => {
-    const storage = localStorage.getItem(key);
-    return storage !== null ? storage : '';
+    if (typeof window !== 'undefined') {
+      const storage = localStorage.getItem(key);
+      return storage !== null ? storage : '';
+    }
   });
 
   const saveToLocalStorage = (newValue: string) => {

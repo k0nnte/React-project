@@ -1,5 +1,5 @@
 import { Iindex, Iresponse } from '../interfases/interfases';
-import '../Cart/Cart.scss';
+import './Cart.module.scss';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ChangeEvent, useContext } from 'react';
 import { useDispatch } from 'react-redux';

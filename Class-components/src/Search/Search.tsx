@@ -1,5 +1,6 @@
+'use clinet';
 import React, { useContext, useState } from 'react';
-import '../Search/Search.scss';
+import style from './Search.module.scss';
 import useLocalStorage from '../interfases/hooks';
 import { Contex } from '../contex/contex';
 import { IonSearch } from '../interfases/interfases';
@@ -33,19 +34,19 @@ const Search: React.FC<IonSearch> = ({ onSearch }) => {
 
   return (
     <>
-      <div className="wrapTop">
+      <div className={style.wrapTop}>
         <input
           type="text"
           value={inputInfo}
           placeholder="введите запрос"
           onChange={inputChange}
-          className="inpyt"
+          className={style.input}
         />
         <button onClick={clickBtn}>Search</button>
         <button onClick={clickErr}>Throw ERROR</button>
       </div>
-      <div className="ligth">
-        <button className="ligth_btn" onClick={setligth}>
+      <div className={style.ligth}>
+        <button className={style.ligth_btn} onClick={setligth}>
           togle theme
         </button>
       </div>
