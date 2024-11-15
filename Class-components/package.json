@@ -10,11 +10,13 @@
     "preview": "vite preview",
     "format:fix": "prettier --write .",
     "prepare": "cd .. &&  husky Class-components/.husky",
-    "test": "vitest --coverage"
+    "test": "vitest --coverage",
+    "devi": "next dev"
   },
   "dependencies": {
     "@reduxjs/toolkit": "https://pkg.csb.dev/reduxjs/redux-toolkit/commit/beb818cb/@reduxjs/toolkit",
     "@types/react-redux": "^7.1.33",
+    "next": "^15.0.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-redux": "^9.1.2",
