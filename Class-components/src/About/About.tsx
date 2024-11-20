@@ -11,7 +11,7 @@ import ligth from '../light.module.scss';
 const About: React.FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const queryParams = new URLSearchParams(searchParams.toString());
+  const queryParams = new URLSearchParams(searchParams);
   const search = queryParams.get('search') || '';
   const page = queryParams.get('page') || '';
   const { id } = router.query;
@@ -34,7 +34,11 @@ const About: React.FC = () => {
   };
 
   if (isSuccess) {
+    console.log(data.results);
+
     const rezult = data.results[Number(numericId)];
+    console.log(rezult);
+
     return (
       <div className={`${style.about} ${theme ? '' : ligth.black}`}>
         <div className={style.text}>
