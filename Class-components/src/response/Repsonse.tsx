@@ -1,26 +1,36 @@
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+'use clinet';
+import React, { useContext } from 'react';
+import { useRouter } from 'next/router';
 import Cart from '../Cart/Cart';
-import { Iobject } from '../interfases/interfases';
 import Loading from '../Loading/Loading';
-import './Repsonse.module.scss';
+import style from './Repsonse.module.scss';
 import { useGetAllPeopleQuery } from './request';
-import { useContext, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import { useDispatch } from 'react-redux';
 import { distroyer } from '../store/reduser';
 import { saveAs } from 'file-saver';
+import { useSearchParams } from 'next/navigation';
+import { useState } from 'react';
 import { Contex } from '../contex/contex';
+import ligtn from '../light.module.scss';
 
-const Response: React.FC<Iobject> = ({ search }) => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const store = useSelector((state: RootState) => state.counter.value);
-  const dispatch = useDispatch();
-  const queryParams = new URLSearchParams(location.search);
-  const page = queryParams.get('page') || '1';
+interface pagechild {
+  children: React.ReactNode;
+}
+
+const Repsonse: React.FC<pagechild> = ({ children }) => {
+  const navigate = useRouter();
+  const searchParams = useSearchParams();
   const contex = useContext(Contex);
   const { theme } = contex;
+
+  const store = useSelector((state: RootState) => state.counter.value);
+  const dispatch = useDispatch();
+  const queryParams = new URLSearchParams(searchParams.toString());
+
+  const page = queryParams.get('page') || '1';
+  const search = queryParams.get('search');
 
   const [cheked, setcheked] = useState<{ [key: string]: boolean }>({});
 
@@ -50,22 +60,26 @@ const Response: React.FC<Iobject> = ({ search }) => {
   };
 
   const { data, isLoading, isSuccess, isError, isFetching } =
-    useGetAllPeopleQuery([search, page]);
+    useGetAllPeopleQuery([search == null ? '' : search, page]);
 
   const handlePreviousPage = () => {
     const prevPage = page ? +page - 1 : 1;
-    navigate(`?page=${prevPage}`);
+    queryParams.set('page', prevPage.toString());
+    navigate.push(`/?${queryParams.toString()}`);
   };
   const clickrez = () => {
     const currentPath = location.pathname;
+
     const detailsRegex = /\/details\/\d+/;
+
     if (detailsRegex.test(currentPath)) {
-      navigate(`/?${queryParams}`);
+      navigate.push(`/?${queryParams}`);
     }
   };
   const handleNextPage = () => {
     const nextPage = page ? +page + 1 : 2;
-    navigate(`?page=${nextPage}`);
+    queryParams.set('page', nextPage.toString());
+    navigate.push(`/?${queryParams.toString()}`);
   };
 
   const save = () => {
@@ -88,9 +102,9 @@ const Response: React.FC<Iobject> = ({ search }) => {
   if (isSuccess) {
     return (
       <>
-        <div className="response">
-          <div className="wrapbottom">
-            <div className="results" onClick={clickrez}>
+        <div className={style.response}>
+          <div className={style.wrapbottom}>
+            <div className={style.results} onClick={clickrez}>
               {data!.results.map((item, index) => (
                 <Cart
                   key={index}
@@ -102,16 +116,16 @@ const Response: React.FC<Iobject> = ({ search }) => {
               ))}
             </div>
             {data!.count > 10 && (
-              <div className="pagination">
+              <div className={style.pagination}>
                 <button
-                  className="btnclick"
+                  className={style.btnclick}
                   onClick={handlePreviousPage}
                   disabled={page ? +page === 1 : true}
                 >
                   prev
                 </button>
                 <button
-                  className="btnclick"
+                  className={style.btnclick}
                   onClick={handleNextPage}
                   disabled={
                     page ? +page === Math.ceil(data!.count / 10) : false
@@ -122,17 +136,17 @@ const Response: React.FC<Iobject> = ({ search }) => {
               </div>
             )}
           </div>
-          <Outlet />
+          {children}
         </div>
         <div
-          className={`out ${store.length > 0 ? 'open' : ''} ${theme ? '' : 'black'}`}
+          className={`${style.out} ${store.length > 0 ? style.open : ``} ${theme ? `` : ligtn.black}`}
         >
           <p>{store.length} items are selected</p>
-          <div className="buttons">
-            <button onClick={reset} className="btn">
+          <div className={style.buttons}>
+            <button onClick={reset} className={style.btn}>
               Unselect all
             </button>
-            <button onClick={save} className="btn">
+            <button onClick={save} className={style.btn}>
               Download
             </button>
           </div>
@@ -142,4 +156,4 @@ const Response: React.FC<Iobject> = ({ search }) => {
   }
 };
 
-export default Response;
+export default Repsonse;

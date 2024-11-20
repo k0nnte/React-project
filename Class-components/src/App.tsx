@@ -31,7 +31,7 @@ const App: React.FC = () => {
       </div>
       <div className={`bottom ${theme ? '' : 'black'}`}>
         <Routes>
-          <Route path="/" element={<Response search={searchText} />}>
+          <Route path="/" element={<Response children={<About />} />}>
             <Route path="/details/:id" element={<About />} />
           </Route>
           {/* <Route path="/*" element={<ErrorCart />} /> */}

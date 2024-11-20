@@ -6,13 +6,14 @@ import { Contex } from '../contex/contex';
 import { IonSearch } from '../interfases/interfases';
 
 const Search: React.FC<IonSearch> = ({ onSearch }) => {
-  const [inputInfo, setInputInfo] = useLocalStorage('text');
+  const [inputInfo, setValueState, saveToLocalStorage] =
+    useLocalStorage('text');
   const [err, setErr] = useState<boolean>(false);
   const contex = useContext(Contex);
   const { theme, setTheme } = contex;
 
   const inputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputInfo(event.target.value);
+    setValueState(event.target.value);
   };
 
   const setligth = () => {
@@ -20,7 +21,8 @@ const Search: React.FC<IonSearch> = ({ onSearch }) => {
   };
 
   const clickBtn = () => {
-    localStorage.setItem('text', inputInfo.trim());
+    saveToLocalStorage(inputInfo.trim());
+
     onSearch(inputInfo.trim());
   };
 

@@ -1,11 +1,12 @@
 import React from 'react';
 import gif from '../public/assets/await.gif';
-import './Loading.module.scss';
+import style from './Loading.module.scss';
+import Image from 'next/image';
 
 const Loading: React.FC = () => {
   return (
-    <div className="wrapper_image">
-      <img src={gif} alt="loading" className="image" />
+    <div className={style.wrapper_image}>
+      <Image src={gif} alt="loading" className={style.image} />
     </div>
   );
 };

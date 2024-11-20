@@ -1,6 +1,7 @@
 import React from 'react';
-import Loyaut from './loyaut';
-const main: React.FC = () => {
-  return <Loyaut>hihihiih</Loyaut>;
+
+const App: React.FC = () => {
+  return <></>;
 };
-export default main;
+
+export default App;
