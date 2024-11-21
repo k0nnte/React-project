@@ -37,7 +37,6 @@ const About: React.FC = () => {
     console.log(data.results);
 
     const rezult = data.results[Number(numericId)];
-    console.log(rezult);
 
     return (
       <div className={`${style.about} ${theme ? '' : ligth.black}`}>

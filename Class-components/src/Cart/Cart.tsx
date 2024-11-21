@@ -8,6 +8,8 @@ import { useRouter } from 'next/router';
 import styleligth from '../light.module.scss';
 
 const Cart: React.FC<Iindex> = ({ response, index, isChecked, toogle }) => {
+  console.log(response);
+
   const navigator = useRouter();
   const dispath = useDispatch();
   const queryParams = new URLSearchParams(navigator.asPath.split('?')[1]);
