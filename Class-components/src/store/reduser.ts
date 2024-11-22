@@ -23,7 +23,7 @@ export const counterSlice = createSlice({
       );
     },
     distroyer: (state) => {
-      state.value.length = 0;
+      state.value = [];
     },
   },
 });

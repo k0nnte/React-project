@@ -8,18 +8,12 @@ import { useRouter } from 'next/router';
 import styleligth from '../light.module.scss';
 
 const Cart: React.FC<Iindex> = ({ response, index, isChecked, toogle }) => {
-  console.log(response);
-
   const navigator = useRouter();
   const dispath = useDispatch();
   const queryParams = new URLSearchParams(navigator.asPath.split('?')[1]);
   const contex = useContext(Contex);
   const { theme } = contex;
   const clickDiv = () => {
-    // if (event?.target instanceof HTMLInputElement) {
-    //   return;
-    // }
-
     navigator.push(`/details/${index}?${queryParams}`);
   };
 

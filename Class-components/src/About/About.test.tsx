@@ -1,13 +1,22 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { expect, test, vi } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 import About from './About';
 import { useRouter } from 'next/router';
 import { useGetAllPeopleQuery } from '../response/request';
-import { describe } from 'node:test';
 
 vi.mock('next/router', () => ({
   useRouter: vi.fn(),
+}));
+
+vi.mock('./About.module.scss', () => ({
+  about: '.about',
+  default: '',
+}));
+
+vi.mock('../light.module.scss', () => ({
+  black: '.black',
+  default: '',
 }));
 
 vi.mock('../response/request', () => ({
@@ -109,7 +118,7 @@ describe('test About', () => {
   test('click btn', () => {
     mockUseRouter.mockReturnValue({
       query: { search: 'test', page: '1' },
-      push: vi.fn,
+      push: vi.fn(),
     });
     (useGetAllPeopleQuery as ReturnType<typeof vi.fn>).mockReturnValue({
       data: {

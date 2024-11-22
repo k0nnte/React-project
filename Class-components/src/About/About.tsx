@@ -34,12 +34,10 @@ const About: React.FC = () => {
   };
 
   if (isSuccess) {
-    console.log(data.results);
-
     const rezult = data.results[Number(numericId)];
 
     return (
-      <div className={`${style.about} ${theme ? '' : ligth.black}`}>
+      <div className={`${style.about} ${theme ? '' : ligth.black}`} id="test">
         <div className={style.text}>
           <p>name: {rezult.name}</p>
           <p>height: {rezult.height}</p>
