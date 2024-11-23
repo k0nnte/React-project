@@ -1,4 +1,3 @@
-'use clinet';
 import React, { useContext, useState } from 'react';
 import style from './Search.module.scss';
 import useLocalStorage from '../interfases/hooks';

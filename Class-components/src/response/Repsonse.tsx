@@ -1,4 +1,3 @@
-'use clinet';
 import React, { useContext } from 'react';
 import { useRouter } from 'next/router';
 import Cart from '../Cart/Cart';

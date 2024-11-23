@@ -1,4 +1,4 @@
-import About from '../../../About/About';
+import About from '../../About/About';
 import { useRouter } from 'next/router';
 
 const DetailPage = () => {
