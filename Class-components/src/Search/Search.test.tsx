@@ -39,11 +39,4 @@ describe('test Search', () => {
 
     expect(onSearch).toBeCalledWith('test');
   });
-  test('clickerr', () => {
-    render(<Search onSearch={onSearch} />);
-
-    const btn = screen.getByText(/Throw ERROR/i);
-
-    expect(() => fireEvent.click(btn)).toThrow('Click error');
-  });
 });

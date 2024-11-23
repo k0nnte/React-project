@@ -5,18 +5,18 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { useGetAllPeopleQuery } from './request';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
-import DetailPage from '../pages/details/[id]';
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from 'next/navigation';
+import DetailPage from '../app/details/[id]/page';
 
 vi.mock('react-redux', () => ({
   useSelector: vi.fn(),
   useDispatch: vi.fn(),
 }));
-
-vi.mock('next/router', () => ({
-  useRouter: vi.fn(),
-}));
-
 vi.mock('react-redux', () => ({
   useDispatch: vi.fn(),
   useSelector: vi.fn(),
@@ -24,6 +24,9 @@ vi.mock('react-redux', () => ({
 
 vi.mock('next/navigation', () => ({
   useSearchParams: vi.fn(() => new URLSearchParams('search=test&page=1')),
+  useRouter: vi.fn(),
+  usePathname: vi.fn(),
+  useParams: vi.fn(),
 }));
 
 vi.mock('./request', () => ({
@@ -44,8 +47,28 @@ describe('test Response', () => {
       { name: 'John' },
       { name: 'Jane' },
       { name: 'Alice' },
-      { name: 'Mike' },
-      { name: 'Lexa' },
+      { name: 'q' },
+      { name: 'w' },
+      { name: 'e' },
+      { name: 'r' },
+      { name: 't' },
+      { name: 'y' },
+      { name: 'u' },
+      { name: 'i' },
+      { name: 'o' },
+      { name: 'p' },
+      { name: 'a' },
+      { name: 's' },
+      { name: 'd' },
+      { name: 'f' },
+      { name: 'g' },
+      { name: 'h' },
+      { name: 'j' },
+      { name: 'k' },
+      { name: 'l' },
+      { name: ';' },
+      { name: 'z' },
+      { name: 'x' },
     ],
     count: 20,
   };
@@ -88,11 +111,10 @@ describe('test Response', () => {
 
   test('destroy', () => {
     (useRouter as Mock).mockReturnValue({
-      asPath: '/?',
       push: vi.fn(),
-      query: {
-        id: 1,
-      },
+    });
+    (useParams as Mock).mockResolvedValue({
+      id: '0',
     });
     const dispatch = vi.fn();
     (useDispatch as unknown as Mock).mockReturnValue(dispatch);
@@ -181,7 +203,7 @@ describe('test Response', () => {
     const img = screen.getAllByAltText('loading');
     expect(img[0]).toBeInTheDocument();
   });
-  test('dounload', () => {
+  test('download', () => {
     (useGetAllPeopleQuery as Mock).mockReturnValue({
       data: mockData,
       isLoading: false,
@@ -190,11 +212,10 @@ describe('test Response', () => {
       isFetching: false,
     });
     (useRouter as Mock).mockReturnValue({
-      asPath: 'details/1',
       push: vi.fn(),
-      query: {
-        id: 1,
-      },
+    });
+    (useParams as Mock).mockReturnValue({
+      id: '1',
     });
     const dispatch = vi.fn();
     (useDispatch as unknown as Mock).mockReturnValue(dispatch);
@@ -217,22 +238,45 @@ describe('test Response', () => {
     });
     const pushM = vi.fn();
     (useRouter as Mock).mockReturnValue({
-      asPath: '/details/1',
       push: pushM,
-      query: {
-        id: 1,
-      },
     });
+    (useParams as Mock).mockReturnValue({
+      id: '1',
+    });
+    (usePathname as Mock).mockReturnValue('/details/1');
     const dispatch = vi.fn();
     (useDispatch as unknown as Mock).mockReturnValue(dispatch);
     const mockStore = { length: 1 };
     (useSelector as unknown as Mock).mockReturnValue(mockStore);
     render(<Repsonse children={<Ap />} />);
-    const originalLocation = global.location;
-    global.location = { ...originalLocation, pathname: '/details/1' };
+
     const clickrez = screen.getByText(/John/i);
     fireEvent.click(clickrez);
     expect(pushM).toHaveBeenCalledWith('/?search=test&page=1');
-    global.location = originalLocation;
+  });
+  test('handlePreviousPage', () => {
+    (useGetAllPeopleQuery as Mock).mockReturnValue({
+      data: mockData,
+      isLoading: false,
+      isSuccess: true,
+      isError: false,
+      isFetching: false,
+    });
+    const pushM = vi.fn();
+    (useRouter as Mock).mockReturnValue({
+      push: pushM,
+    });
+    (useParams as Mock).mockReturnValue({
+      id: '0',
+    });
+    (useSearchParams as Mock).mockReturnValue({
+      toString: vi.fn(() => 'page=2'),
+    });
+    const mockStore = { length: 3 };
+    (useSelector as unknown as Mock).mockReturnValue(mockStore);
+    render(<Repsonse children={<Ap />} />);
+    const prevpage = screen.getByText('prev');
+    fireEvent.click(prevpage);
+    expect(pushM).toHaveBeenCalledWith('/?page=1');
   });
 });

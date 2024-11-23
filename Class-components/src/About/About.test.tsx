@@ -1,12 +1,14 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { describe, expect, test, vi } from 'vitest';
+import { describe, expect, Mock, test, vi } from 'vitest';
 import About from './About';
-import { useRouter } from 'next/router';
+import { useParams, useRouter } from 'next/navigation';
 import { useGetAllPeopleQuery } from '../response/request';
 
-vi.mock('next/router', () => ({
+vi.mock('next/navigation', () => ({
   useRouter: vi.fn(),
+  useParams: vi.fn(),
+  useSearchParams: vi.fn(),
 }));
 
 vi.mock('./About.module.scss', () => ({
@@ -27,8 +29,8 @@ const mockUseRouter = useRouter as ReturnType<typeof vi.fn>;
 
 describe('test About', () => {
   test('error ', () => {
-    mockUseRouter.mockReturnValue({
-      query: { id: '0' },
+    (useParams as Mock).mockReturnValue({
+      id: '0',
     });
     (useGetAllPeopleQuery as ReturnType<typeof vi.fn>).mockReturnValue({
       data: {
@@ -57,8 +59,8 @@ describe('test About', () => {
     expect(screen.getByText('Не удалось загрузить')).toBeInTheDocument();
   });
   test('secsess', async () => {
-    mockUseRouter.mockReturnValue({
-      query: { id: '0' },
+    (useParams as Mock).mockReturnValue({
+      id: '0',
     });
     (useGetAllPeopleQuery as ReturnType<typeof vi.fn>).mockReturnValue({
       data: {
@@ -86,8 +88,8 @@ describe('test About', () => {
   });
 
   test('Loading', () => {
-    mockUseRouter.mockReturnValue({
-      query: { id: '0' },
+    (useParams as Mock).mockReturnValue({
+      id: '0',
     });
     (useGetAllPeopleQuery as ReturnType<typeof vi.fn>).mockReturnValue({
       data: {
@@ -117,8 +119,10 @@ describe('test About', () => {
 
   test('click btn', () => {
     mockUseRouter.mockReturnValue({
-      query: { search: 'test', page: '1' },
       push: vi.fn(),
+    });
+    (useParams as Mock).mockReturnValue({
+      id: '0',
     });
     (useGetAllPeopleQuery as ReturnType<typeof vi.fn>).mockReturnValue({
       data: {
