@@ -7,6 +7,7 @@ import { Contex } from '../contex/contex';
 import { useRouter } from 'next/router';
 import { useSearchParams } from 'next/navigation';
 import ligth from '../light.module.scss';
+import Link from 'next/link';
 
 const About: React.FC = () => {
   const router = useRouter();
@@ -29,9 +30,9 @@ const About: React.FC = () => {
     return <Loading />;
   }
 
-  const ckick = () => {
-    router.push(`/?${queryParams}`);
-  };
+  // const ckick = () => {
+  //   router.push(`/?${queryParams}`);
+  // };
 
   if (isSuccess) {
     const rezult = data.results[Number(numericId)];
@@ -48,9 +49,9 @@ const About: React.FC = () => {
           <p>birth_year: {rezult.birth_year}</p>
           <p>gender: {rezult.gender}</p>
         </div>
-        <button onClick={ckick} style={{ cursor: 'pointer' }}>
-          close
-        </button>
+        <Link href={`/?${queryParams}`}>
+          <button style={{ cursor: 'pointer' }}>close</button>
+        </Link>
       </div>
     );
   }
