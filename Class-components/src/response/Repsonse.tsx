@@ -1,5 +1,6 @@
+'use client';
 import React, { useContext } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import Cart from '../Cart/Cart';
 import Loading from '../Loading/Loading';
 import style from './Repsonse.module.scss';
@@ -9,7 +10,7 @@ import { RootState } from '../store/store';
 import { useDispatch } from 'react-redux';
 import { distroyer } from '../store/reduser';
 import { saveAs } from 'file-saver';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { Contex } from '../contex/contex';
 import ligtn from '../light.module.scss';
@@ -23,6 +24,7 @@ const Repsonse: React.FC<pagechild> = ({ children }) => {
   const searchParams = useSearchParams();
   const contex = useContext(Contex);
   const { theme } = contex;
+  const currentPath = usePathname();
 
   const store = useSelector((state: RootState) => state.counter.value);
   const dispatch = useDispatch();
@@ -67,12 +69,10 @@ const Repsonse: React.FC<pagechild> = ({ children }) => {
     navigate.push(`/?${queryParams.toString()}`);
   };
   const clickrez = () => {
-    const currentPath = location.pathname;
-
     const detailsRegex = /\/details\/\d+/;
 
     if (detailsRegex.test(currentPath)) {
-      navigate.push(`/?${queryParams}`);
+      navigate.push(`/?${queryParams.toString()}`);
     }
   };
   const handleNextPage = () => {
@@ -135,7 +135,8 @@ const Repsonse: React.FC<pagechild> = ({ children }) => {
               </div>
             )}
           </div>
-          {children}
+
+          {currentPath !== `/` && children}
         </div>
         <div
           className={`${style.out} ${store.length > 0 ? style.open : ``} ${theme ? `` : ligtn.black}`}

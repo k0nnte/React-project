@@ -1,5 +1,5 @@
 import { describe, Mock, test, vi } from 'vitest';
-import DetailPage from '.';
+import DetailPage from './page';
 import { render } from '@testing-library/react';
 import { useRouter } from 'next/router';
 

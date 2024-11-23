@@ -1,3 +1,4 @@
+'use client';
 import React, { createContext, useState } from 'react';
 import { ContextType, ProviderProps } from '../interfases/interfases';
 

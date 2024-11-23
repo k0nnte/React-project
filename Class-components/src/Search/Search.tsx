@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import style from './Search.module.scss';
 import useLocalStorage from '../interfases/hooks';
 import { Contex } from '../contex/contex';
@@ -7,7 +7,7 @@ import { IonSearch } from '../interfases/interfases';
 const Search: React.FC<IonSearch> = ({ onSearch }) => {
   const [inputInfo, setValueState, saveToLocalStorage] =
     useLocalStorage('text');
-  const [err, setErr] = useState<boolean>(false);
+  // const [err, setErr] = useState<boolean>(false);
   const contex = useContext(Contex);
   const { theme, setTheme } = contex;
 
@@ -25,13 +25,13 @@ const Search: React.FC<IonSearch> = ({ onSearch }) => {
     onSearch(inputInfo.trim());
   };
 
-  const clickErr = () => {
-    setErr(true);
-  };
+  // const clickErr = () => {
+  //   setErr(true);
+  // };
 
-  if (err) {
-    throw new Error('Click error');
-  }
+  // if (err) {
+  //   throw new Error('Click error');
+  // }
 
   return (
     <>
@@ -44,7 +44,7 @@ const Search: React.FC<IonSearch> = ({ onSearch }) => {
           className={style.input}
         />
         <button onClick={clickBtn}>Search</button>
-        <button onClick={clickErr}>Throw ERROR</button>
+        {/* <button onClick={clickErr}>Throw ERROR</button> */}
       </div>
       <div className={style.ligth}>
         <button className={style.ligth_btn} onClick={setligth}>

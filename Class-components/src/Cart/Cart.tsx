@@ -1,17 +1,19 @@
+'use client';
 import { Iindex, Iresponse } from '../interfases/interfases';
 import style from './Cart.module.scss';
 import { ChangeEvent, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { add, remove } from '../store/reduser';
 import { Contex } from '../contex/contex';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/navigation';
 import styleligth from '../light.module.scss';
 import Link from 'next/link';
 
 const Cart: React.FC<Iindex> = ({ response, index, isChecked, toogle }) => {
-  const navigator = useRouter();
+  // const navigator = useRouter();
   const dispath = useDispatch();
-  const queryParams = new URLSearchParams(navigator.asPath.split('?')[1]);
+  // const queryParams = new URLSearchParams(navigator.asPath.split('?')[1]);
+  const queryParams = new URLSearchParams(location.search.split('?')[1]);
   const contex = useContext(Contex);
   const { theme } = contex;
 

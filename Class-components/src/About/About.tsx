@@ -1,21 +1,22 @@
 // import { useLocation, useNavigate, useParams } from 'react-router-dom';
+'use clinet';
 import { useGetAllPeopleQuery } from '../response/request';
 import Loading from '../Loading/Loading';
 import style from './About.module.scss';
 import { useContext } from 'react';
 import { Contex } from '../contex/contex';
-import { useRouter } from 'next/router';
+import { useParams } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
 import ligth from '../light.module.scss';
 import Link from 'next/link';
 
 const About: React.FC = () => {
-  const router = useRouter();
+  const router = useParams();
   const searchParams = useSearchParams();
   const queryParams = new URLSearchParams(searchParams);
   const search = queryParams.get('search') || '';
   const page = queryParams.get('page') || '';
-  const { id } = router.query;
+  const { id } = router;
   const numericId = id ? parseInt(id as string, 10) : null;
   const contex = useContext(Contex);
   const { theme } = contex;
