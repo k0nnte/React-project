@@ -1,0 +1,13 @@
+.cart{
+    border: 2px solid black;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.check{
+    width: 25px;
+    margin: 0 auto;
+    cursor: pointer;
+}
