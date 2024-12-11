@@ -1,61 +1,46 @@
-// import { useLocation, useNavigate, useParams } from 'react-router-dom';
-'use clinet';
-import { useGetAllPeopleQuery } from '../response/request';
-import Loading from '../Loading/Loading';
-import style from './About.module.scss';
+import '../About/About.scss';
+import '../old_app/light.scss';
 import { useContext } from 'react';
 import { Contex } from '../contex/contex';
-import { useParams } from 'next/navigation';
-import { useSearchParams } from 'next/navigation';
-import ligth from '../light.module.scss';
-import Link from 'next/link';
-
+import { Link, useLocation, useLoaderData } from '@remix-run/react';
+import { loader } from '../../app/routes/details.$id';
 const About: React.FC = () => {
-  const router = useParams();
-  const searchParams = useSearchParams();
-  const queryParams = new URLSearchParams(searchParams);
-  const search = queryParams.get('search') || '';
-  const page = queryParams.get('page') || '';
-  const { id } = router;
-  const numericId = id ? parseInt(id as string, 10) : null;
+  const searchParams = useLocation();
+  const queryParams = new URLSearchParams(searchParams.search);
   const contex = useContext(Contex);
   const { theme } = contex;
+  const rezult = useLoaderData<typeof loader>();
 
-  const { data, isLoading, isSuccess, isError, isFetching } =
-    useGetAllPeopleQuery([search, page]);
-
-  if (isError) {
-    return <div>Не удалось загрузить</div>;
-  }
-  if (isLoading || isFetching) {
-    return <Loading />;
-  }
-
-  // const ckick = () => {
-  //   router.push(`/?${queryParams}`);
-  // };
-
-  if (isSuccess) {
-    const rezult = data.results[Number(numericId)];
-
+  if (rezult?.error) {
     return (
-      <div className={`${style.about} ${theme ? '' : ligth.black}`} id="test">
-        <div className={style.text}>
-          <p>name: {rezult.name}</p>
-          <p>height: {rezult.height}</p>
-          <p>mass: {rezult.mass}</p>
-          <p>hair_color: {rezult.hair_color}</p>
-          <p>skin_color: {rezult.skin_color}</p>
-          <p>eye_color: {rezult.eye_color}</p>
-          <p>birth_year: {rezult.birth_year}</p>
-          <p>gender: {rezult.gender}</p>
+      <div className={`about ${theme ? '' : 'black'}`} id="test">
+        <div className="text">
+          <>Error</>
+          <Link to={`/?${queryParams}`}>
+            <button style={{ cursor: 'pointer' }}>close</button>
+          </Link>
         </div>
-        <Link href={`/?${queryParams}`}>
-          <button style={{ cursor: 'pointer' }}>close</button>
-        </Link>
       </div>
     );
   }
+
+  return (
+    <div className={`about ${theme ? '' : 'black'}`} id="test">
+      <div className="text">
+        <p>name: {rezult.name}</p>
+        <p>height: {rezult.height}</p>
+        <p>mass: {rezult.mass}</p>
+        <p>hair_color: {rezult.hair_color}</p>
+        <p>skin_color: {rezult.skin_color}</p>
+        <p>eye_color: {rezult.eye_color}</p>
+        <p>birth_year: {rezult.birth_year}</p>
+        <p>gender: {rezult.gender}</p>
+      </div>
+      <Link to={`/?${queryParams}`}>
+        <button style={{ cursor: 'pointer' }}>close</button>
+      </Link>
+    </div>
+  );
 };
 
 export default About;

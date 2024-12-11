@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { request } from '../response/request';
+import { request } from '../Response/request';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { counterSlice } from './reduser';
 

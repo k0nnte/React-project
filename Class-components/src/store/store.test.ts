@@ -1,6 +1,6 @@
 import { store } from './store';
 import { counterSlice } from './reduser';
-import { request } from '../response/request';
+import { request } from '../Response/request';
 import { describe, it, expect } from 'vitest';
 
 describe('Redux Store', () => {
